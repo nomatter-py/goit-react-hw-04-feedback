@@ -2,28 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ButtonList, Button } from './FeedbackOptions.styled';
 
-export const FeedbackOptions = ({ onLeaveFeedback }) => {
+export const FeedbackOptions = ({ options, onLeaveFeedback }) => {
+  const capitalize = ([first,...rest]) => first.toUpperCase() + rest.join('').toLowerCase();
   return (
     <ButtonList>
-      <li>
-        <Button mood="good" onClick={onLeaveFeedback}>
-          Good
+      {options.map((item) => (
+        <li key={item}>
+        <Button name={item} onClick={onLeaveFeedback}>
+          {capitalize(item)}
         </Button>
-      </li>
-      <li>
-        <Button mood="neutral" onClick={onLeaveFeedback}>
-          Neutral
-        </Button>
-      </li>
-      <li>
-        <Button mood="bad" onClick={onLeaveFeedback}>
-          Bad
-        </Button>
-      </li>
+      </li>  
+      ))}
     </ButtonList>
   );
 };
 
 FeedbackOptions.propTypes = {
-    onLeaveFeedback: PropTypes.func.isRequired,
+  options: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onLeaveFeedback: PropTypes.func.isRequired,
 };

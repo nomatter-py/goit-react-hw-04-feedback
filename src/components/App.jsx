@@ -13,7 +13,7 @@ export default class App extends Component {
   };
 
   setFeedback = evt => {
-    const stateName = evt.target.innerText.toLowerCase();
+    const stateName = evt.target.name;
     this.setState(prevState => ({ [stateName]: prevState[stateName] + 1 }));
   };
 
@@ -39,7 +39,7 @@ export default class App extends Component {
         <GlobalStyle />
         <Section>
           <h2>Please leave your feedback</h2>
-          <FeedbackOptions onLeaveFeedback={this.setFeedback} />
+          <FeedbackOptions options={ Object.keys(this.state)} onLeaveFeedback={this.setFeedback} />
         </Section>
         <Section>
           <Statistics
