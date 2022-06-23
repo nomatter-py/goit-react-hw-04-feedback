@@ -4,6 +4,7 @@ import { GlobalStyle } from './GlobalStyle/GlobalStyle';
 import { FeedbackOptions } from './FeedbackOptions/FeedbackOptions';
 import { Statistics } from './Statistics/Statistics';
 import { Section } from './Section/Section';
+import { Notification } from './Notification/Notification';
 
 export default class App extends Component {
   state = {
@@ -28,27 +29,36 @@ export default class App extends Component {
     return total === 0 ? 0 : parseInt((good * 100) / total);
   }
 
-  render() {
-    let { good, neutral, bad } = this.state;
-
+  renderStatistics = () => {
+    const { good, neutral, bad } = this.state;
     let total = this.countTotalFeedback();
-    let positivePercentage = this.countPositiveFeedbackPercentage();
+    if (total > 0) {
+      return <Statistics
+      good={good}
+      neutral={neutral}
+      bad={bad}
+      total={this.countTotalFeedback()}
+      positivePercentage={this.countPositiveFeedbackPercentage()}
+    />;
+    } else {
+      return <Notification message ="No feedback given"/>
+    }
+  };
 
+  render() {
+    
     return (
       <Section>
         <GlobalStyle />
         <Section>
           <h2>Please leave your feedback</h2>
-          <FeedbackOptions options={ Object.keys(this.state)} onLeaveFeedback={this.setFeedback} />
+          <FeedbackOptions
+            options={Object.keys(this.state)}
+            onLeaveFeedback={this.setFeedback}
+          />
         </Section>
         <Section>
-          <Statistics
-            good={good}
-            neutral={neutral}
-            bad={bad}
-            total={total}
-            positivePercentage={positivePercentage}
-          ></Statistics>
+          {this.renderStatistics()}
         </Section>
       </Section>
     );
