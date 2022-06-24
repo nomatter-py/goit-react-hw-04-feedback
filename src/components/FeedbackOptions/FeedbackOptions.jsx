@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { nanoid } from 'nanoid';
 import { ButtonList, Button } from './FeedbackOptions.styled';
 
 export const FeedbackOptions = ({ options, onLeaveFeedback }) => {
@@ -7,7 +8,7 @@ export const FeedbackOptions = ({ options, onLeaveFeedback }) => {
   return (
     <ButtonList>
       {options.map((item) => (
-        <li key={item}>
+      <li key={nanoid()}>
         <Button name={item} onClick={onLeaveFeedback}>
           {capitalize(item)}
         </Button>
