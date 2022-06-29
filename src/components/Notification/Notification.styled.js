@@ -5,5 +5,3 @@ export const ButtonList = styled.ul`
  gap: 10px;
  padding-top:20px;
 `;
-
-export const Button = styled.button``;

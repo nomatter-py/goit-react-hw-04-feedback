@@ -29,24 +29,10 @@ export default class App extends Component {
     return total === 0 ? 0 : parseInt((good * 100) / total);
   }
 
-  renderStatistics = () => {
-    const { good, neutral, bad } = this.state;
-    let total = this.countTotalFeedback();
-    if (total > 0) {
-      return <Statistics
-      good={good}
-      neutral={neutral}
-      bad={bad}
-      total={this.countTotalFeedback()}
-      positivePercentage={this.countPositiveFeedbackPercentage()}
-    />;
-    } else {
-      return <Notification message ="No feedback given"/>
-    }
-  };
 
   render() {
-    
+    const { good, neutral, bad } = this.state;
+    let total = this.countTotalFeedback();
     return (
       <Section>
         <GlobalStyle />
@@ -58,7 +44,15 @@ export default class App extends Component {
           />
         </Section>
         <Section>
-          {this.renderStatistics()}
+          {(total > 0) ? (
+            <Statistics
+              good={good}
+              neutral={neutral}
+              bad={bad}
+              total={this.countTotalFeedback()}
+              positivePercentage={this.countPositiveFeedbackPercentage()}
+            />) : <Notification message="No feedback given" />
+          }
         </Section>
       </Section>
     );
